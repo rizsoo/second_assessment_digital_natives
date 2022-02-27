@@ -1,0 +1,12 @@
+h3,
+p {
+  margin: 0 !important;
+}
+.profile {
+  background-color: rgb(255, 239, 239);
+  padding: 15px;
+  margin: 10px;
+}
+.pagination {
+  margin: 10px auto;
+}
