@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate';
+import Item from './Item';
 
 function App() {
 
@@ -8,6 +9,8 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [pageNum, setPageNum] = useState(0);
+
+ 
 
   useEffect(() => {
     fetch("https://assessment-users-backend.herokuapp.com/users.json")
@@ -27,7 +30,6 @@ function App() {
 
   const handlePageClick = (data) => {
     setPageNum(data.selected);
-    console.log(data);
   }
 
   let nextNum = pageNum * 10;
@@ -40,29 +42,33 @@ function App() {
     return (
       <div>
         {items.filter((item, i) => i >= nextNum & i < nextNum + 10).map(item => (
-          <div className='profile' key={item.id}>
-            <h3>{item.first_name} {item.last_name}</h3>
-            <p>Created at: {item.created_at}</p>
-          </div>
-        ))}
-        <div className='pagination'>
-          <ReactPaginate 
-            onPageChange={handlePageClick}
-            containerClassName={'pagination justify-content-center'}
-            pageClassName={'page-item'}
-            pageCount={items.length / 10}
-            pageLinkClassName={'page-link'}
-            previousClassName={'page-item'}
-            previousLinkClassName={'page-link'}
-            nextClassName={'page-item'}
-            nextLinkClassName={'page-link'}
-            activeClassName={'active'}
+          <Item 
+            key={item.id}
+            firstName={item.first_name}
+            lastName={item.last_name}
+            created={item.created_at}
+            status={item.status}
+            item={item}
+            list={items}
+            setItems={setItems}
           />
-       </div>
-      </div>
-    );
-  }
+        ))}
+          <div className='pagination'>
+            <ReactPaginate 
+              onPageChange={handlePageClick}
+              containerClassName={'pagination justify-content-center'}
+              pageClassName={'page-item'}
+              pageCount={items.length / 10}
+              pageLinkClassName={'page-link'}
+              previousClassName={'page-item'}
+              previousLinkClassName={'page-link'}
+              nextClassName={'page-item'}
+              nextLinkClassName={'page-link'}
+              activeClassName={'active'}
+            />
+        </div>
+        </div>
+    )}
 
 }
-
 export default App;
