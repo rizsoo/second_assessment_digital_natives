@@ -6,7 +6,52 @@ p {
   background-color: rgb(255, 239, 239);
   padding: 15px;
   margin: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+.profile ion-icon {
+  margin: 0;
+  border: none;
+
+  color: white;
+
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.editing {
+  display: flex;
+}
+.box {
+  border-radius: 5px;
+  background-color: rgb(43, 43, 43);
+  margin-left: 5px;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+.active {
+  background-color: rgb(64, 187, 64);
+}
+.locked {
+  background-color: rgb(230, 82, 82);
+}
+.line-through {
+  text-decoration: line-through;
+}
+.greyish {
+  opacity: 0.65;
+}
+
 .pagination {
   margin: 10px auto;
 }
