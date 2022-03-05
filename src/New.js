@@ -9,11 +9,10 @@ const New = () => {
   const [inputFirstName, setInputFirstName] = useState("");
   const [inputLastName, setInputLastName] = useState("");
 
-  // Date
+// Date
   const today = new Date().toISOString();
 
-  let oldItems = JSON.parse(localStorage.getItem('items')) || [];
-
+// Create new item
   let newItem = {
       'first_name': inputFirstName,
       'last_name': inputLastName,
@@ -21,15 +20,22 @@ const New = () => {
       'created_at': today
   };
   
+// POST REQUIEST
   if(inputFirstName != "" || inputLastName != "") {
-    oldItems.push(newItem);
-    localStorage.setItem('items', JSON.stringify(oldItems));
+    fetch('https://assessment-users-backend.herokuapp.com/users', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newItem)
+    }).then(() => {
+      console.log('new user added');
+    })
   }
   
   return (
     <div>
       <Header />
       <AddUserComponent 
+
           inputFirstName={inputFirstName}
           setInputFirstName={setInputFirstName}
 

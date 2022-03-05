@@ -62,7 +62,7 @@ const Edit = () => {
             <p>Users last name </p>
             <input name="last_name" type="text"  defaultValue={inputLastName} onChange={editLastName}
               />
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Update" />
         </form>
       </div>
   )

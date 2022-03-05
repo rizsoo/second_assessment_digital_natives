@@ -1,37 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-const Item = ({key, firstName, lastName, created, status, item, list, setItems, edit, setEdit, isEdit, setIsEdit}) => {
+const Item = ({key, firstName, lastName, created, status, list, setItems, item, edit, setEdit, isEdit, setIsEdit}) => {
+    
+    const [statusUpdate, setStatusUpdate] = useState(false)
 
-    // Edit Active
-    function editActive() {
+    function putRequest() {
+        const today = new Date().toISOString();
+
+        const id = item.id.toString();
+        // console.log(item);
+      
+        fetch(`https://assessment-users-backend.herokuapp.com/users/${id}`, {
+            method: 'PUT',
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+            body: JSON.stringify(item) })
+                // .then(response => this.setItems({ updated_at: today }))
+        
+    }
+    function editStatus() {
+
         setItems(list.map((el) => {
-        if(el.id === item.id && el.status === "active") {
+            if(el.id === item.id && el.status === "active") {
+                
+                return {
+                ...el, status: "locked" 
+                }
+            } else if(el.id === item.id && el.status === "locked") {
+                
+                return {
+                    ...el, status: "active",
+                };
+            }        
             return {
-            ...el, status: "locked" 
-            }
-        } else if(el.id === item.id && el.status === "locked") {
-            return {
-                ...el, status: "active"
-            };
-        }
-        return {
-            ...el
-        }; 
-        }))
+                ...el
+            }; 
+            }))
+            console.log(item);
     }
 
-    //handle sent to edit
+    useEffect(() => {
+        putRequest()
+    })
+
+    // handle sent to edit
     function sendToEdit() {
         setIsEdit([])
         list.map((el) => {
             if(el.id === item.id) {
-                console.log(el);
                 isEdit.push(el)
             } 
             return null
         })
-        console.log(isEdit);
         //Save to local what we want to edit
         if (localStorage.getItem("editItem") === null) {
             localStorage.setItem("editItem", JSON.stringify([]));
@@ -49,10 +70,10 @@ const Item = ({key, firstName, lastName, created, status, item, list, setItems, 
         <div className='editing'>
             <div className={edit? '' : 'greyish'}>
                 {edit?
-                    <button className={status === "active" ? "active box" : "locked box"} onClick={editActive}>
+                    <button className={status === "active" ? "active box" : "locked box"} onClick={editStatus}>
                         <ion-icon name={status === "active" ? "lock-open-outline" : "lock-closed-outline"}></ion-icon>
                     </button> : 
-                    <button className={status === "active" ? "active box" : "locked box"} onClick={editActive} disabled>
+                    <button className={status === "active" ? "active box" : "locked box"} onClick={editStatus} disabled>
                         <ion-icon name={status === "active" ? "lock-open-outline" : "lock-closed-outline"}></ion-icon>
                     </button> }
             </div>
