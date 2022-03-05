@@ -4,12 +4,14 @@ import ReactPaginate from 'react-paginate';
 import Item from './Components/Item';
 import Header from './Components/Header';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function App() {
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  
   const [pageNum, setPageNum] = useState(0);
 
   const [edit, setEdit] = useState(false);
@@ -26,7 +28,7 @@ function App() {
         (result) => {
           setIsLoaded(true);
           setItems(result);
-          console.log(result);
+          // console.log(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -37,31 +39,8 @@ function App() {
 
 // Run once when app starts
     useEffect(() => {
-      getLocalItems()
+      getData()
     }, []);
-  
-// USE Effect
-    useEffect(() => {
-      saveIntoLocal();
-    }, [items]);
-
-  
-// Save to local
-  function saveIntoLocal() {
-    if (localStorage.getItem("items") === null) {
-      localStorage.setItem("items", JSON.stringify([]));
-    } else {
-      localStorage.setItem("items", JSON.stringify(items));
-    }
-  };
-  function getLocalItems() {
-    if (localStorage.getItem("items") === null) {
-      localStorage.setItem("items", JSON.stringify([]));
-    } else {
-      let userLocal = JSON.parse(localStorage.getItem('items'));
-      setItems(userLocal)
-    }
-  };
   
 // Handle pagination click
   function handlePageClick(data) {
@@ -71,19 +50,20 @@ function App() {
 // Handle Update button function
   function handleUpdate() {
     setEdit(false);
-    saveIntoLocal();
   }
+
+ 
 
   let nextNum = pageNum * 10;
 
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // } else if (!isLoaded) {
-  //   return <div>
-  //     <Header />
-  //     <h4 className='loader'>Loading...</h4>
-  //     </div>;
-  // } else {
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!isLoaded) {
+    return <div>
+      <Header />
+      <h4 className='loader'>Loading...</h4>
+      </div>;
+  } else {
     return (
       <div>
         <Header />
@@ -127,6 +107,7 @@ function App() {
         </div>
         </div>
     )}
+        }
 
 
 export default App;
