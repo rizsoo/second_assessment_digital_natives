@@ -10,18 +10,17 @@ const Edit = () => {
 
   const [listOfItems, setListOfItems] = useState([]);
 
-  //GET r.
+//GET r.
   useEffect(() => {
     fetch('https://assessment-users-backend.herokuapp.com/users.json')
         .then(response => response.json())
         .then(data => setListOfItems(data));
 }, []);
 
-//EDIT First name
+//EDIT Names
   function editFirstName(e) {
     setInputFirstName(e.target.value)
   }
-
   function editLastName(e) {
     setInputLastName(e.target.value)
   }
@@ -39,7 +38,6 @@ const Edit = () => {
       })
       }
     })
-
   }
 
   //SUBMIT

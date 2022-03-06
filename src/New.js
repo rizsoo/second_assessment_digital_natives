@@ -3,7 +3,6 @@ import AddUserComponent from './Components/AddNewUser.js'
 import Header from './Components/Header.js'
 import { useState } from 'react'
 
-
 const New = () => {
   const [inputFirstName, setInputFirstName] = useState("");
   const [inputLastName, setInputLastName] = useState("");

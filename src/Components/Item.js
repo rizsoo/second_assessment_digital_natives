@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Item = ({ firstName, lastName, created, status, list, setItems, item, edit, setEdit, isEdit, setIsEdit}) => {
     
+// PUT r.
     function putRequest() {
         const today = new Date().toISOString();
 
@@ -12,8 +13,8 @@ const Item = ({ firstName, lastName, created, status, list, setItems, item, edit
             method: 'PUT',
             headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
             body: JSON.stringify(item) })
-                // .then(response => this.setItems({ updated_at: today }))
         
+// EDIT status clickable function
     }
     function editStatus() {
         setItems(list.map((el) => {
