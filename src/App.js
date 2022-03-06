@@ -4,7 +4,6 @@ import ReactPaginate from 'react-paginate';
 import Item from './Components/Item';
 import Header from './Components/Header';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 function App() {
 
@@ -16,9 +15,6 @@ function App() {
 
   const [edit, setEdit] = useState(false);
   const [isEdit, setIsEdit] = useState([])
-
-  // const [inputFirstName, setInputFirstName] = useState("");
-  // const [inputLastName, setInputLastName] = useState("");
 
 // FETCH API
   function getData() {
@@ -46,16 +42,17 @@ function App() {
   function handlePageClick(data) {
     setPageNum(data.selected);
   }
-
 // Handle Update button function
   function handleUpdate() {
     setEdit(false);
   }
 
- 
+//  console.log(items);
 
+ // Pagination hand
   let nextNum = pageNum * 10;
 
+  // Error message
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
@@ -64,17 +61,19 @@ function App() {
       <h4 className='loader'>Loading...</h4>
       </div>;
   } else {
-    return (
-      <div>
-        <Header />
-        <div className='editor-toolbar'>
-          <Link to="/new"><button>Add new</button></Link>
-          <button onClick={getData}>Reset data</button>
-          <button onClick={() => setEdit(!edit)} className={edit? "btn-edit" : ""}>Edit status</button>
-          <button onClick={handleUpdate} className='btn-update'>Update</button>
-        </div>
-        {items.filter((item, i) => i >= nextNum & i < nextNum + 10).map(item => (
-          <Item 
+    
+// RETURN
+return (
+  <div>
+    <Header />
+    <div className='editor-toolbar'>
+      <Link to="/new"><button>Add new</button></Link>
+      <button onClick={getData}>Reset data</button>
+      <button onClick={() => setEdit(!edit)} className={edit? "btn-edit" : ""}>Edit status</button>
+      <button onClick={handleUpdate} className='btn-update'>Update</button>
+    </div>
+    {items.filter((item, i) => i >= nextNum & i < nextNum + 10).map(item => (
+      <Item 
             key={item.id}
             firstName={item.first_name}
             lastName={item.last_name}
@@ -87,10 +86,10 @@ function App() {
             setEdit={setEdit}
             isEdit={isEdit}
             setIsEdit={setIsEdit}
-          />
-        ))}
-          <div className='pagination'>
-            <ReactPaginate 
+      />
+    ))}
+      <div className='pagination'>
+        <ReactPaginate 
               onPageChange={handlePageClick}
               containerClassName={'pagination justify-content-center'}
               pageClassName={'page-item'}
@@ -103,11 +102,10 @@ function App() {
               activeClassName={'active'}
               breakClassName={'page-item'}
               breakLinkClassName={'page-link'}
-            />
-        </div>
-        </div>
+        />
+      </div>
+      </div>
     )}
-        }
-
+  }
 
 export default App;

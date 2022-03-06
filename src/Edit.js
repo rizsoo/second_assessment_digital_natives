@@ -3,19 +3,19 @@ import Header from './Components/Header.js'
 import { useState, useEffect } from 'react';
 
 const Edit = () => {
-
   let editThisItem = JSON.parse(localStorage.getItem('editItem')) || [];
 
   const [inputFirstName, setInputFirstName] = useState(editThisItem[0].first_name);
   const [inputLastName, setInputLastName] = useState(editThisItem[0].last_name);
-  
-// Date
-  const today = new Date().toISOString();
-  
-  let oldItems = JSON.parse(localStorage.getItem('items')) || [];
-  const [listOfItems, setListOfItems] = useState(oldItems);
 
+  const [listOfItems, setListOfItems] = useState([]);
 
+  //GET r.
+  useEffect(() => {
+    fetch('https://assessment-users-backend.herokuapp.com/users.json')
+        .then(response => response.json())
+        .then(data => setListOfItems(data));
+}, []);
 
 //EDIT First name
   function editFirstName(e) {
@@ -26,10 +26,26 @@ const Edit = () => {
     setInputLastName(e.target.value)
   }
 
-//SUBMIT
+  //PUT r.
+  function putRequest() {
+    const today = new Date().toISOString();
+    const id = editThisItem[0].id.toString();
+    listOfItems.map((el) => {
+      if(el.id === editThisItem[0].id) {
+        fetch(`https://assessment-users-backend.herokuapp.com/users/${id}`, {
+        method: 'PUT',
+        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        body: JSON.stringify(el) 
+      })
+      }
+    })
+
+  }
+
+  //SUBMIT
   function handleSubmit(event) {
     event.preventDefault();
-    setListOfItems(oldItems.map((el) => {
+    setListOfItems(listOfItems.map((el) => {
       const today = new Date().toISOString();
         if(el.id === editThisItem[0].id) {
           return {
@@ -38,18 +54,12 @@ const Edit = () => {
         }
         return el;
       }))
+      console.log("user updated");
   }
 
   useEffect(() => {
-    saveIntoLocal();
-  }, [listOfItems]);
-  
-  function saveIntoLocal() {
-    if (localStorage.getItem("items") === null) {
-      localStorage.setItem("items", JSON.stringify([]));
-    } else {
-      localStorage.setItem("items", JSON.stringify(listOfItems));
-  }};
+    putRequest()
+  })
 
   return (
       <div>

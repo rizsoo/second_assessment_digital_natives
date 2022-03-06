@@ -1,8 +1,7 @@
 import React from 'react'
 import AddUserComponent from './Components/AddNewUser.js'
 import Header from './Components/Header.js'
-import App from './App.js'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 
 const New = () => {
@@ -35,7 +34,6 @@ const New = () => {
     <div>
       <Header />
       <AddUserComponent 
-
           inputFirstName={inputFirstName}
           setInputFirstName={setInputFirstName}
 

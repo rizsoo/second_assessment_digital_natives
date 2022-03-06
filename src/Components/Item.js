@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
-const Item = ({key, firstName, lastName, created, status, list, setItems, item, edit, setEdit, isEdit, setIsEdit}) => {
+const Item = ({ firstName, lastName, created, status, list, setItems, item, edit, setEdit, isEdit, setIsEdit}) => {
     
-    const [statusUpdate, setStatusUpdate] = useState(false)
-
     function putRequest() {
         const today = new Date().toISOString();
 
         const id = item.id.toString();
-        // console.log(item);
       
         fetch(`https://assessment-users-backend.herokuapp.com/users/${id}`, {
             method: 'PUT',
@@ -20,15 +16,12 @@ const Item = ({key, firstName, lastName, created, status, list, setItems, item, 
         
     }
     function editStatus() {
-
         setItems(list.map((el) => {
             if(el.id === item.id && el.status === "active") {
-                
                 return {
                 ...el, status: "locked" 
                 }
             } else if(el.id === item.id && el.status === "locked") {
-                
                 return {
                     ...el, status: "active",
                 };
@@ -37,14 +30,13 @@ const Item = ({key, firstName, lastName, created, status, list, setItems, item, 
                 ...el
             }; 
             }))
-            console.log(item);
     }
 
     useEffect(() => {
         putRequest()
     })
 
-    // handle sent to edit
+// Handle sent to edit
     function sendToEdit() {
         setIsEdit([])
         list.map((el) => {
@@ -53,16 +45,17 @@ const Item = ({key, firstName, lastName, created, status, list, setItems, item, 
             } 
             return null
         })
-        //Save to local what we want to edit
-        if (localStorage.getItem("editItem") === null) {
-            localStorage.setItem("editItem", JSON.stringify([]));
-          } else {
-            localStorage.setItem("editItem", JSON.stringify(isEdit));
-          }
-    }
+
+// Save to local what we want to edit
+if (localStorage.getItem("editItem") === null) {
+    localStorage.setItem("editItem", JSON.stringify([]));
+} else {
+    localStorage.setItem("editItem", JSON.stringify(isEdit));
+}
+}
     
-  return (
-    <div className='profile' key={key}>
+return (
+    <div className='profile' key={item.id}>
         <div>
             <h3 className={status === "active" ? null : "line-through"}>{firstName} {lastName}</h3>
             <p className={status === "active" ? null : "line-through"}>Created at: {created}</p>
