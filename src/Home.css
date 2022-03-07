@@ -1,0 +1,46 @@
+h3,
+p {
+  margin: 0 !important;
+}
+.pagination {
+  margin: 20px auto;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+  background-color: rgb(43, 43, 43);
+}
+.loader {
+  font-weight: bold;
+  text-align: center;
+  margin: 20px auto;
+}
+
+/* ADD USER */
+.add-user {
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 15px 0;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* Pagination */
+.page-link,
+.page-item {
+  background-color: rgb(43, 43, 43);
+  border: 0;
+  color: white;
+  outline: none;
+}
+.page-link:hover {
+  background-color: rgb(124, 124, 124);
+  color: white;
+}
+.page-item:first-child .page-link {
+  background-color: rgb(43, 43, 43) !important;
+}
+.page-item.active .page-link {
+  outline: unset;
+  border: unset !important;
+}

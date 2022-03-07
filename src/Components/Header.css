@@ -39,9 +39,7 @@ ul {
   color: white;
   font-size: 40px;
   cursor: pointer;
-  /* padding-right: 25px; */
 }
-
 .navbar {
   position: absolute;
   padding: 0;

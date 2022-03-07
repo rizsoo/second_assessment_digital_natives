@@ -1,0 +1,62 @@
+.box {
+  border-radius: 10px;
+  background-color: rgb(59, 59, 59);
+  margin-left: 5px;
+  padding: 5px;
+  height: 40px;
+  width: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+.active {
+  background-color: rgb(64, 187, 64);
+}
+.locked {
+  background-color: rgb(230, 82, 82);
+}
+.line-through {
+  text-decoration: line-through;
+  color: rgb(124, 124, 124);
+}
+.greyish {
+  opacity: 0.65;
+}
+
+.profile {
+  background-color: rgb(233, 233, 233);
+  padding: 15px;
+  margin: 10px;
+
+  max-width: 600px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 10px auto;
+}
+.profile ion-icon {
+  margin: 0;
+  border: none;
+
+  color: white;
+
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.editing {
+  display: flex;
+}
+
+.profile h3 {
+  font-weight: bold;
+}
+.profile p {
+  font-size: 13px;
+}

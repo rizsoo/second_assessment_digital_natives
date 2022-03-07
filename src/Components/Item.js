@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import './Item.css'
 
 const Item = ({ firstName, lastName, created, status, list, setItems, item, edit, setEdit, isEdit, setIsEdit}) => {
     
